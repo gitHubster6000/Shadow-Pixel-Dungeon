@@ -408,6 +408,8 @@ public enum Icons {
 			return get( ROGUE );
 		case HUNTRESS:
 			return get( HUNTRESS );
+			case VOIDWALKER:
+				return get( WARRIOR );
 		case RAT_KING:
 			return new ItemSprite(ItemSpriteSheet.CHEESE);
 		default:

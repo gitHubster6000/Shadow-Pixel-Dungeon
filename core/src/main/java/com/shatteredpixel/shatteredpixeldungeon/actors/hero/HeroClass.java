@@ -8,6 +8,9 @@
  * Experienced Pixel Dungeon
  * Copyright (C) 2019-2020 Trashbox Bobylev
  *
+ * Shadow Pixel Dungeon
+ * Copyright (C) 2023 Rexbattler41
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -37,6 +40,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ratking.Le
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.DeathMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.SmokeBomb;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.voidwalker.AnimalsTrans;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.voidwalker.LifeDash;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.voidwalker.SuperNova;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
@@ -53,14 +59,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.*;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.LeftClaw;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RightClaw;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
@@ -72,6 +81,7 @@ public enum HeroClass {
 	MAGE( HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK ),
 	ROGUE( HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
 	HUNTRESS( HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
+	VOIDWALKER( HeroSubClass.FLOATER, HeroSubClass.CLAWFUSER),
 	RAT_KING(HeroSubClass.KING);
 
 	private HeroSubClass[] subClasses;
@@ -114,6 +124,10 @@ public enum HeroClass {
 
 			case HUNTRESS:
 				initHuntress( hero );
+				break;
+
+			case VOIDWALKER:
+				initVoidwalker( hero );
 				break;
 
 			case RAT_KING:
@@ -205,6 +219,18 @@ public enum HeroClass {
 		new ScrollOfLullaby().identify();
 	}
 
+	private static void initVoidwalker( Hero hero ) {
+
+		(hero.belongings.weapon = new RightClaw()).identify();
+		LeftClaw claw = new LeftClaw();
+		claw.identify().collect();
+
+		Dungeon.quickslot.setSlot(0, claw);
+
+		new ScrollOfTeleportation().identify();
+		new PotionOfLevitation().identify();
+	}
+
 	private static void initRK( Hero hero ) {
 		MagesStaff staff;
 
@@ -271,6 +297,8 @@ public enum HeroClass {
 				return new ArmorAbility[]{new SmokeBomb(), new DeathMark(), new ShadowClone()};
 			case HUNTRESS:
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
+			case VOIDWALKER:
+				return new ArmorAbility[]{new AnimalsTrans(), new LifeDash(), new SuperNova()};
 			case RAT_KING:
 				return new ArmorAbility[]{new Ratmogrify(), new LegacyWrath()};
 		}
@@ -286,6 +314,8 @@ public enum HeroClass {
 				return Assets.Sprites.ROGUE;
 			case HUNTRESS:
 				return Assets.Sprites.HUNTRESS;
+			case VOIDWALKER:
+				return Assets.Sprites.VOIDWALKER;
 			case RAT_KING:
 				return Assets.Sprites.RAT_KING_HERO;
 		}
@@ -301,6 +331,9 @@ public enum HeroClass {
 				return Assets.Splashes.ROGUE;
 			case HUNTRESS:
 				return Assets.Splashes.HUNTRESS;
+			case VOIDWALKER:
+				return Assets.Splashes.HUNTRESS;
+				//This is just temporary, since I don't have a splash art yet
 			case RAT_KING:
 				return Assets.Splashes.RATKING;
 		}

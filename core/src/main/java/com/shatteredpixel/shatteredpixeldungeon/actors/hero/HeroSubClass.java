@@ -8,6 +8,9 @@
  * Experienced Pixel Dungeon
  * Copyright (C) 2019-2020 Trashbox Bobylev
  *
+ * Shadow Pixel Dungeon
+ * Copyright (C) 2023 Rexbattler41
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -40,12 +43,15 @@ public enum HeroSubClass {
 
 	BATTLEMAGE(HeroIcon.BATTLEMAGE),
 	WARLOCK(HeroIcon.WARLOCK),
-	
+
 	ASSASSIN(HeroIcon.ASSASSIN),
 	FREERUNNER(HeroIcon.FREERUNNER),
-	
+
 	SNIPER(HeroIcon.SNIPER),
 	WARDEN(HeroIcon.WARDEN),
+
+	FLOATER(HeroIcon.FLOATER),
+	CLAWFUSER(HeroIcon.CLAWFUSER),
 
 	KING(HeroIcon.RATKING);
 
@@ -54,7 +60,7 @@ public enum HeroSubClass {
 	HeroSubClass(int icon){
 		this.icon = icon;
 	}
-	
+
 	public String title() {
 		return Messages.get(this, name());
 	}

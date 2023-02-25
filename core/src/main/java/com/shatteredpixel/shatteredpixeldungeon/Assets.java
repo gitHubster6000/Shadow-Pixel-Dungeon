@@ -304,5 +304,6 @@ public class Assets {
 		public static final String HOOKS = "sprites/hooks.png";
 		public static final String EXP_GEN = "sprites/expgen.png";
 		public static final String RAT_KING_HERO = "sprites/ratkinghero.png";
-	}
+        public static final String VOIDWALKER = "sprites/VoidWalker.png";
+    }
 }

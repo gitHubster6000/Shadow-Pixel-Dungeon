@@ -8,6 +8,9 @@
  * Experienced Pixel Dungeon
  * Copyright (C) 2019-2020 Trashbox Bobylev
  *
+ * Shadow Pixel Dungeon
+ * Copyright (C) 2023 Rexbattler41
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -2146,7 +2149,14 @@ if (buff(Talent.SpiritBladesTracker.class) != null
 			else
 				spendAndNext(TIME_TO_SEARCH);
 			if (!Dungeon.level.locked) {
-				if (cursed) {
+				if (heroClass == HeroClass.VOIDWALKER){
+					if (cursed) {
+						GLog.n(Messages.get(this, "search_distracted"));
+						Buff.affect(this, Hunger.class).affectHunger(TIME_TO_SEARCH - HUNGER_FOR_SEARCH);
+					} else {
+						Buff.affect(this, Hunger.class).affectHunger(TIME_TO_SEARCH - (0 * HUNGER_FOR_SEARCH));
+					}
+				}else if (cursed) {
 					GLog.n(Messages.get(this, "search_distracted"));
 					Buff.affect(this, Hunger.class).affectHunger(TIME_TO_SEARCH - (2 * HUNGER_FOR_SEARCH));
 				} else {

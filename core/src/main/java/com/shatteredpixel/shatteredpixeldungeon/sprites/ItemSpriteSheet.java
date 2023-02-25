@@ -8,6 +8,9 @@
  * Experienced Pixel Dungeon
  * Copyright (C) 2019-2020 Trashbox Bobylev
  *
+ * Shadow Pixel Dungeon
+ * Copyright (C) 2023 Rexbattler41
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -210,7 +213,7 @@ public class ItemSpriteSheet {
 
 	private static final int WEP_TIER1      =                               xy(1, 7);   //8 slots
 	public static final int WORN_SHORTSWORD = WEP_TIER1+0;
-	public static final int CUDGEL          = WEP_TIER1+1;
+	public static final int CLAW            = WEP_TIER1+1;
 	public static final int GLOVES          = WEP_TIER1+2;
 	public static final int RAPIER          = WEP_TIER1+3;
 	public static final int DAGGER          = WEP_TIER1+4;
@@ -221,6 +224,7 @@ public class ItemSpriteSheet {
 		assignItemRect(GLOVES,          12, 16);
 		assignItemRect(DAGGER,          12, 13);
 		assignItemRect(MAGES_STAFF,     15, 16);
+		assignItemRect(CLAW,            12, 16);
 	}
 
 	private static final int WEP_TIER2      =                               xy(9, 7);   //8 slots
@@ -293,6 +297,7 @@ public class ItemSpriteSheet {
 	public static final int DART            = MISSILE_WEP+1;
 	public static final int THROWING_KNIFE  = MISSILE_WEP+2;
 	public static final int THROWING_STONE  = MISSILE_WEP+3;
+	public static final int CUDGEL          = MISSILE_WEP+3;
 	
 	public static final int FISHING_SPEAR   = MISSILE_WEP+4;
 	public static final int SHURIKEN        = MISSILE_WEP+5;
@@ -363,6 +368,7 @@ public class ItemSpriteSheet {
 	public static final int ARMOR_ROGUE     = ARMOR+7;
 	public static final int ARMOR_HUNTRESS  = ARMOR+8;
 	public static final int ARMOR_RAT_KING	= ARMOR+9;
+	public static final int ARMOR_VOIDW     = ARMOR+10;
 	static{
 		assignItemRect(ARMOR_CLOTH,     15, 12);
 		assignItemRect(ARMOR_LEATHER,   14, 13);
@@ -374,6 +380,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ARMOR_ROGUE,     14, 12);
 		assignItemRect(ARMOR_HUNTRESS,  13, 15);
 		assignItemRect(ARMOR_RAT_KING,	12, 6);
+		assignItemRect(ARMOR_VOIDW,     13, 15);
 	}
 
 	                                                                                    //16 free slots
