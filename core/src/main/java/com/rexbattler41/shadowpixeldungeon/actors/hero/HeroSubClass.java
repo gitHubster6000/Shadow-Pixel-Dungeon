@@ -50,7 +50,7 @@ public enum HeroSubClass {
 	SNIPER(HeroIcon.SNIPER),
 	WARDEN(HeroIcon.WARDEN),
 
-	FLOATER(HeroIcon.FLOATER),
+	SPEEDSTER(HeroIcon.SPEEDSTER),
 	CLAWFUSER(HeroIcon.CLAWFUSER),
 
 	KING(HeroIcon.RATKING);

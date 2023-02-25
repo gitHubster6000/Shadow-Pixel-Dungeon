@@ -27,16 +27,38 @@
 
 package com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker;
 
+import com.rexbattler41.shadowpixeldungeon.Assets;
+import com.rexbattler41.shadowpixeldungeon.actors.Actor;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.Buff;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.FlavourBuff;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.Invisibility;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Hero;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Talent;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.ArmorAbility;
+import com.rexbattler41.shadowpixeldungeon.effects.particles.LeafParticle;
 import com.rexbattler41.shadowpixeldungeon.items.armor.ClassArmor;
+import com.rexbattler41.shadowpixeldungeon.ui.BuffIndicator;
 import com.rexbattler41.shadowpixeldungeon.ui.HeroIcon;
+import com.watabou.noosa.audio.Sample;
 
 public class AnimalsTrans extends ArmorAbility {
     @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
 
+        Buff.prolong(hero, AnimalsTrans.animalsPowerTracker.class, AnimalsTrans.animalsPowerTracker.DURATION);
+        hero.buff(AnimalsTrans.animalsPowerTracker.class);
+        hero.sprite.operate(hero.pos);
+        Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
+        hero.sprite.emitter().burst(LeafParticle.GENERAL, 10);
+
+        armor.charge -= chargeUse(hero);
+        armor.updateQuickslot();
+        Invisibility.dispel();
+        hero.spendAndNext(Actor.TICK);
+    }
+
+    {
+        baseChargeUse = 100f;
     }
 
     @Override
@@ -47,5 +69,25 @@ public class AnimalsTrans extends ArmorAbility {
     @Override
     public int icon() {
         return HeroIcon.SPIRIT_HAWK;
+    }
+
+    public static class animalsPowerTracker extends FlavourBuff {
+
+        {
+            type = buffType.POSITIVE;
+        }
+
+        public static final float DURATION = 400f;
+
+        @Override
+        public int icon() {
+            return BuffIndicator.NATURE_POWER;
+        }
+
+        @Override
+        public float iconFadePercent() {
+            return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+        }
+
     }
 }

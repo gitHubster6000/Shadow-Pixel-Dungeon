@@ -41,13 +41,14 @@ import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.rogue.DeathMark
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.rogue.SmokeBomb;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.AnimalsTrans;
-import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.LifeDash;
+import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.StrikingDash;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.SuperNova;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.rexbattler41.shadowpixeldungeon.items.BrokenSeal;
 import com.rexbattler41.shadowpixeldungeon.items.Item;
+import com.rexbattler41.shadowpixeldungeon.items.KingsCrown;
 import com.rexbattler41.shadowpixeldungeon.items.PsycheChest;
 import com.rexbattler41.shadowpixeldungeon.items.Waterskin;
 import com.rexbattler41.shadowpixeldungeon.items.armor.ClothArmor;
@@ -81,7 +82,7 @@ public enum HeroClass {
 	MAGE( HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK ),
 	ROGUE( HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
 	HUNTRESS( HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
-	VOIDWALKER( HeroSubClass.FLOATER, HeroSubClass.CLAWFUSER),
+	VOIDWALKER( HeroSubClass.SPEEDSTER, HeroSubClass.CLAWFUSER),
 	RAT_KING(HeroSubClass.KING);
 
 	private HeroSubClass[] subClasses;
@@ -224,6 +225,8 @@ public enum HeroClass {
 		(hero.belongings.weapon = new RightClaw()).identify();
 		LeftClaw claw = new LeftClaw();
 		claw.identify().collect();
+		KingsCrown crown = new KingsCrown();
+		crown.collect();
 
 		Dungeon.quickslot.setSlot(0, claw);
 
@@ -298,7 +301,7 @@ public enum HeroClass {
 			case HUNTRESS:
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
 			case VOIDWALKER:
-				return new ArmorAbility[]{new AnimalsTrans(), new LifeDash(), new SuperNova()};
+				return new ArmorAbility[]{new AnimalsTrans(), new StrikingDash(), new SuperNova()};
 			case RAT_KING:
 				return new ArmorAbility[]{new Ratmogrify(), new LegacyWrath()};
 		}

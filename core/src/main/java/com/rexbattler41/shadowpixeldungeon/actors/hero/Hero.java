@@ -34,6 +34,7 @@ import com.rexbattler41.shadowpixeldungeon.actors.blobs.SacrificialFire;
 import com.rexbattler41.shadowpixeldungeon.actors.buffs.*;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
+import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.AnimalsTrans;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.rexbattler41.shadowpixeldungeon.actors.mobs.Mob;
 import com.rexbattler41.shadowpixeldungeon.actors.mobs.Monk;
@@ -460,6 +461,11 @@ public class Hero extends Char {
 			evasion *= 1f + 0.5f*((Hunger.STARVING - hunger)/Hunger.STARVING);
 		}
 
+		AnimalsTrans.animalsPowerTracker AnimalsPower = buff(AnimalsTrans.animalsPowerTracker.class);
+		if (AnimalsPower != null){
+			evasion *= 2f;
+		}
+
 		return Math.round(evasion);
 	}
 
@@ -550,6 +556,11 @@ public class Hero extends Char {
 			speed *= (2f + 0.25f*pointsInTalent(Talent.GROWING_POWER));
 		}
 
+		AnimalsTrans.animalsPowerTracker AnimalsPower = buff(AnimalsTrans.animalsPowerTracker.class);
+		if (AnimalsPower != null){
+			speed *= 10f;
+		}
+
 		speed = AscensionChallenge.modifyHeroSpeed(speed);
 
 		return speed;
@@ -602,6 +613,11 @@ public class Hero extends Char {
 			delayFactor = 1f/RingOfFuror.attackDelayMultiplier(this);
 		}
 		if ( buff(Adrenaline.class) != null) delayFactor /= 1.5f;
+
+		AnimalsTrans.animalsPowerTracker AnimalsPower = buff(AnimalsTrans.animalsPowerTracker.class);
+		if (AnimalsPower != null){
+			delayFactor /= 10f;
+		}
 
 		return delayFactor;
 	}

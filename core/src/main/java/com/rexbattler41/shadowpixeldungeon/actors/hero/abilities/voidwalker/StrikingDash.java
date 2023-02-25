@@ -33,7 +33,7 @@ import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.rexbattler41.shadowpixeldungeon.items.armor.ClassArmor;
 import com.rexbattler41.shadowpixeldungeon.ui.HeroIcon;
 
-public class LifeDash extends ArmorAbility {
+public class StrikingDash extends ArmorAbility {
     @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
 
