@@ -2,34 +2,34 @@ package com.zrp200.scrollofdebug;
 
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
+import com.shatteredpixel.rexbattler41.Dungeon;
+import com.shatteredpixel.rexbattler41.shadowpixeldungeon;
+import com.shatteredpixel.rexbattler41.actors.Actor;
+import com.shatteredpixel.rexbattler41.actors.Char;
+import com.shatteredpixel.rexbattler41.actors.blobs.Blob;
+import com.shatteredpixel.rexbattler41.actors.buffs.Buff;
+import com.shatteredpixel.rexbattler41.actors.buffs.FlavourBuff;
+import com.shatteredpixel.rexbattler41.actors.hero.Hero;
+import com.shatteredpixel.rexbattler41.actors.mobs.Mob;
+import com.shatteredpixel.rexbattler41.items.Item;
+import com.shatteredpixel.rexbattler41.items.bags.Bag;
+import com.shatteredpixel.rexbattler41.items.potions.Potion;
+import com.shatteredpixel.rexbattler41.items.scrolls.Scroll;
+import com.shatteredpixel.rexbattler41.levels.Level;
+import com.shatteredpixel.rexbattler41.levels.Terrain;
+import com.shatteredpixel.rexbattler41.levels.traps.Trap;
+import com.shatteredpixel.rexbattler41.messages.Messages;
+import com.shatteredpixel.rexbattler41.scenes.CellSelector;
+import com.shatteredpixel.rexbattler41.scenes.GameScene;
+import com.shatteredpixel.rexbattler41.scenes.PixelScene;
+import com.shatteredpixel.rexbattler41.sprites.CharSprite;
+import com.shatteredpixel.rexbattler41.sprites.ItemSpriteSheet;
+import com.shatteredpixel.rexbattler41.ui.BuffIndicator;
+import com.shatteredpixel.rexbattler41.ui.RenderedTextBlock;
+import com.shatteredpixel.rexbattler41.ui.ScrollPane;
+import com.shatteredpixel.rexbattler41.ui.Window;
+import com.shatteredpixel.rexbattler41.utils.GLog;
+import com.shatteredpixel.rexbattler41.windows.WndTextInput;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Reflection;
@@ -40,7 +40,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.level;
+import static com.shatteredpixel.rexbattler41.Dungeon.level;
 import static java.util.Arrays.copyOfRange;
 
 /**
@@ -622,8 +622,8 @@ public class ScrollOfDebug extends Scroll {
     public static PackageTrie trie = null; // loaded when needed.
     static {
         try {
-            trie = ShatteredPixelDungeon.platform.findClasses(ROOT);
-        } catch (ClassNotFoundException e) { ShatteredPixelDungeon.reportException(e); }
+            trie = shadowpixeldungeon.platform.findClasses(ROOT);
+        } catch (ClassNotFoundException e) { shadowpixeldungeon.reportException(e); }
     }
 
     static String listAllClasses(PackageTrie trie, Class<?> parent) {
