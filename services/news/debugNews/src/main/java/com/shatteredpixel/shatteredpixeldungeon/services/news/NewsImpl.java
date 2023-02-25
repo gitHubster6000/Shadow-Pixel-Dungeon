@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.services.news;
+package com.rexbattler41.shadowpixeldungeon.services.news;
 
 public class NewsImpl {
 

@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.android;
+package com.rexbattler41.shadowpixeldungeon.android;
 
 import android.annotation.TargetApi;
 import android.app.backup.BackupAgent;
@@ -31,9 +31,9 @@ import android.app.backup.BackupDataOutput;
 import android.app.backup.FullBackupDataOutput;
 import android.os.ParcelFileDescriptor;
 
-import com.shatteredpixel.rexbattler41.Badges;
-import com.shatteredpixel.rexbattler41.Rankings;
-import com.shatteredpixel.rexbattler41.journal.Journal;
+import com.rexbattler41.shadowpixeldungeon.Badges;
+import com.rexbattler41.shadowpixeldungeon.Rankings;
+import com.rexbattler41.shadowpixeldungeon.journal.Journal;
 
 import java.io.File;
 

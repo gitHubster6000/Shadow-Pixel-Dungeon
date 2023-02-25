@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.android;
+package com.rexbattler41.shadowpixeldungeon.android;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

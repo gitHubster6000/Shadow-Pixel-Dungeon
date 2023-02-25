@@ -22,9 +22,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.services.news;
+package com.rexbattler41.shadowpixeldungeon.services.news;
 
-import com.shatteredpixel.rexbattler41.services.news.guideEntries.*;
+import com.rexbattler41.shadowpixeldungeon.services.news.guideEntries.*;
 import com.watabou.noosa.Game;
 
 import java.util.ArrayList;

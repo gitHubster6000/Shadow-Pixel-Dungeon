@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.android;
+package com.rexbattler41.shadowpixeldungeon.android;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -38,8 +38,8 @@ import com.badlogic.gdx.backends.android.AndroidGraphics;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.shatteredpixel.rexbattler41.SPDSettings;
-import com.shatteredpixel.rexbattler41.scenes.PixelScene;
+import com.rexbattler41.shadowpixeldungeon.SPDSettings;
+import com.rexbattler41.shadowpixeldungeon.scenes.PixelScene;
 import com.watabou.noosa.Game;
 import com.watabou.utils.PlatformSupport;
 import com.zrp200.scrollofdebug.PackageTrie;

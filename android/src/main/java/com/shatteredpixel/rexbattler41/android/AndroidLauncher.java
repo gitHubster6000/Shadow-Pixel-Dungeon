@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.android;
+package com.rexbattler41.shadowpixeldungeon.android;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -40,13 +40,13 @@ import com.badlogic.gdx.backends.android.AsynchronousAndroidAudio;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.rohitss.uceh.UCEHandler;
-import com.shatteredpixel.rexbattler41.SPDSettings;
-import com.shatteredpixel.rexbattler41.shadowpixeldungeon;
-import com.shatteredpixel.rexbattler41.services.news.News;
-import com.shatteredpixel.rexbattler41.services.news.NewsImpl;
-import com.shatteredpixel.rexbattler41.services.updates.UpdateImpl;
-import com.shatteredpixel.rexbattler41.services.updates.Updates;
-import com.shatteredpixel.rexbattler41.ui.Button;
+import com.rexbattler41.shadowpixeldungeon.SPDSettings;
+import com.rexbattler41.shadowpixeldungeon.shadowpixeldungeon;
+import com.rexbattler41.shadowpixeldungeon.services.news.News;
+import com.rexbattler41.shadowpixeldungeon.services.news.NewsImpl;
+import com.rexbattler41.shadowpixeldungeon.services.updates.UpdateImpl;
+import com.rexbattler41.shadowpixeldungeon.services.updates.Updates;
+import com.rexbattler41.shadowpixeldungeon.ui.Button;
 import com.watabou.noosa.Game;
 import com.watabou.utils.FileUtils;
 

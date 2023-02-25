@@ -19,19 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.ios;
+package com.rexbattler41.shadowpixeldungeon.ios;
 
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
 import com.badlogic.gdx.backends.iosrobovm.IOSPreferences;
 import com.badlogic.gdx.graphics.glutils.HdpiMode;
-import com.shatteredpixel.rexbattler41.SPDSettings;
-import com.shatteredpixel.rexbattler41.ShatteredPixelDungeon;
-import com.shatteredpixel.rexbattler41.services.news.News;
-import com.shatteredpixel.rexbattler41.services.news.NewsImpl;
-import com.shatteredpixel.rexbattler41.services.updates.UpdateImpl;
-import com.shatteredpixel.rexbattler41.services.updates.Updates;
+import com.rexbattler41.shadowpixeldungeon.SPDSettings;
+import com.rexbattler41.shadowpixeldungeon.ShatteredPixelDungeon;
+import com.rexbattler41.shadowpixeldungeon.services.news.News;
+import com.rexbattler41.shadowpixeldungeon.services.news.NewsImpl;
+import com.rexbattler41.shadowpixeldungeon.services.updates.UpdateImpl;
+import com.rexbattler41.shadowpixeldungeon.services.updates.Updates;
 import com.watabou.noosa.Game;
 import com.watabou.utils.FileUtils;
 

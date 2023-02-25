@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.services.updates;
+package com.rexbattler41.shadowpixeldungeon.services.updates;
 
 //TODO with install and review functionality, this service is less and less just about updates
 // perhaps rename to PlatformService, StoreService, DistributionService, etc?

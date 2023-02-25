@@ -15,7 +15,7 @@ allprojects {
 
     ext {
         appName = 'Shadow pixel dungeon'
-        appPackageName = 'com.shatteredpixel.rexbattler41.shadowpixeldungeon'
+        appPackageName = 'com.rexbattler41.shadowpixeldungeon.shadowpixeldungeon'
 
         appVersionCode = 1
         appVersionName = '0.1.0'

@@ -22,9 +22,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.rexbattler41.services.news.guideEntries;
+package com.rexbattler41.shadowpixeldungeon.services.news.guideEntries;
 
-import com.shatteredpixel.rexbattler41.services.news.NewsArticle;
+import com.rexbattler41.shadowpixeldungeon.services.news.NewsArticle;
 
 public class ExpGen extends NewsArticle {
     {
