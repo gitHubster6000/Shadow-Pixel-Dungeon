@@ -561,6 +561,11 @@ public class Hero extends Char {
 			speed *= 10f;
 		}
 
+		if (Dungeon.hero.subClass == HeroSubClass.SPEEDSTER) {
+			speed *= 2f;
+		}
+
+
 		speed = AscensionChallenge.modifyHeroSpeed(speed);
 
 		return speed;
@@ -605,7 +610,6 @@ public class Hero extends Char {
 
 		if (belongings.weapon() != null) {
 			delayFactor = belongings.weapon().delayFactor(this);
-			
 		} else {
 			//Normally putting furor speed on unarmed attacks would be unnecessary
 			//But there's going to be that one guy who gets a furor+force ring combo
@@ -617,6 +621,10 @@ public class Hero extends Char {
 		AnimalsTrans.animalsPowerTracker AnimalsPower = buff(AnimalsTrans.animalsPowerTracker.class);
 		if (AnimalsPower != null){
 			delayFactor /= 10f;
+		}
+
+		if (Dungeon.hero.subClass == HeroSubClass.SPEEDSTER) {
+			delayFactor /= 2f;
 		}
 
 		return delayFactor;
@@ -1629,13 +1637,15 @@ if (buff(Talent.SpiritBladesTracker.class) != null
                 totalExp -= neededExp;
                 ScrollOfUpgrade sou = new ScrollOfUpgrade();
 
-                if (!sou.collect()){
-                    Dungeon.level.drop(sou, pos);
-                } else if (!souAnnounced){
-                    GLog.p( Messages.get(this, "you_now_have", sou.name()) );
-					new Flare(6, 28).color(0x38FF48, true).show(sprite, 3.67f);
-                    souAnnounced = true;
-                }
+				for (int i = 0; i < 5; i++) {
+					if (!sou.collect()) {
+						Dungeon.level.drop(sou, pos);
+					} else if (!souAnnounced) {
+						GLog.p(Messages.get(this, "you_now_have", sou.name()));
+						new Flare(6, 28).color(0x38FF48, true).show(sprite, 3.67f);
+						souAnnounced = true;
+					}
+				}
             }
 
         }

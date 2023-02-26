@@ -40,6 +40,7 @@ import com.rexbattler41.shadowpixeldungeon.items.bags.MagicalHolster;
 import com.rexbattler41.shadowpixeldungeon.items.rings.RingOfEnergy;
 import com.rexbattler41.shadowpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.rexbattler41.shadowpixeldungeon.items.weapon.melee.MagesStaff;
+import com.rexbattler41.shadowpixeldungeon.items.weapon.melee.RightClaw;
 import com.rexbattler41.shadowpixeldungeon.mechanics.Ballistica;
 import com.rexbattler41.shadowpixeldungeon.messages.Messages;
 import com.rexbattler41.shadowpixeldungeon.scenes.CellSelector;
@@ -371,6 +372,14 @@ public abstract class Wand extends Item {
 	}
 
 	public void staffFx( MagesStaff.StaffParticle particle ){
+		particle.color(0xFFFFFF); particle.am = 0.3f;
+		particle.setLifespan( 1f);
+		particle.speed.polar( Random.Float(PointF.PI2), 2f );
+		particle.setSize( 1f, 2f );
+		particle.radiateXY(0.5f);
+	}
+
+	public void RightClawFx( RightClaw.RightClawParticle particle ){
 		particle.color(0xFFFFFF); particle.am = 0.3f;
 		particle.setLifespan( 1f);
 		particle.speed.polar( Random.Float(PointF.PI2), 2f );
