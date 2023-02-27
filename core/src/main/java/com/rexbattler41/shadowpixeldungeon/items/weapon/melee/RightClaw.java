@@ -33,6 +33,7 @@ import com.rexbattler41.shadowpixeldungeon.Dungeon;
 import com.rexbattler41.shadowpixeldungeon.actors.Char;
 import com.rexbattler41.shadowpixeldungeon.actors.buffs.Buff;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Hero;
+import com.rexbattler41.shadowpixeldungeon.actors.hero.HeroSubClass;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Talent;
 import com.rexbattler41.shadowpixeldungeon.effects.particles.ElmoParticle;
 import com.rexbattler41.shadowpixeldungeon.items.ArcaneResin;
@@ -109,10 +110,12 @@ public class RightClaw extends MeleeWeapon{
 
     @Override
     public ArrayList<String> actions(Hero hero) {
-        ArrayList<String> actions = super.actions( hero );
-        actions.add(AC_IMBUE);
-        if (wand!= null && wand.curCharges > 0) {
-            actions.add( AC_ZAP );
+        ArrayList<String> actions = super.actions(hero);
+        if (Dungeon.hero.subClass == HeroSubClass.CLAWFUSER) {
+            actions.add(AC_IMBUE);
+            if (wand != null && wand.curCharges > 0) {
+                actions.add(AC_ZAP);
+            }
         }
         return actions;
     }

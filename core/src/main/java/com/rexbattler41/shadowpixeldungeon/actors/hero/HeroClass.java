@@ -224,10 +224,8 @@ public enum HeroClass {
 
 		RightClaw right;
 
-		right = new RightClaw(new WandOfMagicMissile());
+		right = new RightClaw();
 		(hero.belongings.weapon = right).identify();
-		WandOfMagicMissile magic = new WandOfMagicMissile();
-		magic.identify().collect();
 		LeftClaw claw = new LeftClaw();
 		claw.identify().collect();
 		KingsCrown crown = new KingsCrown();
