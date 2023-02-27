@@ -70,6 +70,8 @@ public class WndHeroInfo extends WndTabbed {
 			case RAT_KING:
 				tabIcon = new ItemSprite(ItemSpriteSheet.ARMOR_RAT_KING, null);
 				break;
+			case VOIDWALKER:
+				tabIcon = new ItemSprite(ItemSpriteSheet.CLAW, null);
 		}
 
 		int finalHeight = MIN_HEIGHT;
@@ -194,8 +196,13 @@ public class WndHeroInfo extends WndTabbed {
 							new ItemSprite(ItemSpriteSheet.ARMOR_RAT_KING),
 							new ItemSprite(ItemSpriteSheet.ARMOR_RAT_KING),
 							new ItemSprite(ItemSpriteSheet.ARMOR_RAT_KING),
-							new ItemSprite(ItemSpriteSheet.ARMOR_RAT_KING)
-					};
+							new ItemSprite(ItemSpriteSheet.ARMOR_RAT_KING)};
+					break;
+				case VOIDWALKER:
+					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.CLAW),
+					        new ItemSprite(ItemSpriteSheet.CLAW),
+					        new ItemSprite(ItemSpriteSheet.CLAW),
+							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
 					break;
 			}
 			for (Image im : icons) {
@@ -286,6 +293,9 @@ public class WndHeroInfo extends WndTabbed {
 							new ItemSprite(ItemSpriteSheet.ARMOR_RAT_KING),
 							new ItemSprite(ItemSpriteSheet.ARMOR_RAT_KING)
 					};
+					break;
+				case VOIDWALKER:
+					icons = new Image[]{ new TalentIcon(Talent.EMPOWERING_MEAL)};
 					break;
 			}
 			for (Image im : icons) {

@@ -62,7 +62,7 @@ public class ScrollOfDebug extends Scroll {
     static String lastCommand = ""; // used with '!!'
 
     /** this is where all the game files are supposed to be located. **/
-    private static final String ROOT = "com.shatteredpixel.shatteredpixeldungeon";
+    private static final String ROOT = "com.rexbattler41.shadowpixeldungeon";
 
     private enum Command {
         HELP(null, // ...

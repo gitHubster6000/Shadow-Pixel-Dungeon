@@ -45,7 +45,6 @@ import com.rexbattler41.shadowpixeldungeon.items.wands.WandOfCorruption;
 import com.rexbattler41.shadowpixeldungeon.items.wands.WandOfDisintegration;
 import com.rexbattler41.shadowpixeldungeon.items.wands.WandOfLivingEarth;
 import com.rexbattler41.shadowpixeldungeon.items.wands.WandOfRegrowth;
-import com.rexbattler41.shadowpixeldungeon.items.wands.*;
 import com.rexbattler41.shadowpixeldungeon.items.weapon.Weapon;
 import com.rexbattler41.shadowpixeldungeon.messages.Messages;
 import com.rexbattler41.shadowpixeldungeon.scenes.GameScene;
@@ -79,6 +78,9 @@ public class RightClaw extends MeleeWeapon{
 
         internalTier = tier = 1;
         DLY = 0.25f;
+
+        defaultAction = AC_ZAP;
+        usesTargeting = true;
 
         unique = true;
         bones = false;

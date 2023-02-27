@@ -222,7 +222,12 @@ public enum HeroClass {
 
 	private static void initVoidwalker( Hero hero ) {
 
-		(hero.belongings.weapon = new RightClaw()).identify();
+		RightClaw right;
+
+		right = new RightClaw(new WandOfMagicMissile());
+		(hero.belongings.weapon = right).identify();
+		WandOfMagicMissile magic = new WandOfMagicMissile();
+		magic.identify().collect();
 		LeftClaw claw = new LeftClaw();
 		claw.identify().collect();
 		KingsCrown crown = new KingsCrown();
