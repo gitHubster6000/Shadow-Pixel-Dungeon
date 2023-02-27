@@ -201,7 +201,6 @@ public class WndHeroInfo extends WndTabbed {
 				case VOIDWALKER:
 					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.CLAW),
 					        new ItemSprite(ItemSpriteSheet.CLAW),
-					        new ItemSprite(ItemSpriteSheet.CLAW),
 							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
 					break;
 			}

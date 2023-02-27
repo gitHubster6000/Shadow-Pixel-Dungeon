@@ -558,7 +558,7 @@ public class Hero extends Char {
 
 		AnimalsTrans.animalsPowerTracker AnimalsPower = buff(AnimalsTrans.animalsPowerTracker.class);
 		if (AnimalsPower != null){
-			speed *= 10f;
+			speed *= 1000f;
 		}
 
 		if (Dungeon.hero.subClass == HeroSubClass.SPEEDSTER) {

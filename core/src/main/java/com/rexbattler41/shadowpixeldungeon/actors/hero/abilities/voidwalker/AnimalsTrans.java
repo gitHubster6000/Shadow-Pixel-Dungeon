@@ -81,7 +81,7 @@ public class AnimalsTrans extends ArmorAbility {
 
         @Override
         public int icon() {
-            return BuffIndicator.NATURE_POWER;
+            return HeroIcon.SPIRIT_HAWK;
         }
 
         @Override

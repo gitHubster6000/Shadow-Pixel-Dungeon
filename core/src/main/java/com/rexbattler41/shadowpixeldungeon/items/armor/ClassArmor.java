@@ -120,6 +120,9 @@ abstract public class ClassArmor extends Armor {
 			case RAT_KING:
 				classArmor = new RatKingArmor();
 				break;
+			case VOIDWALKER:
+				classArmor = new VoidWalkerArmor();
+				break;
 		}
 		
 		classArmor.level(armor.trueLevel());
