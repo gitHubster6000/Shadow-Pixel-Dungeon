@@ -33,6 +33,7 @@ import com.rexbattler41.shadowpixeldungeon.Dungeon;
 import com.rexbattler41.shadowpixeldungeon.actors.Char;
 import com.rexbattler41.shadowpixeldungeon.actors.buffs.Buff;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Hero;
+import com.rexbattler41.shadowpixeldungeon.actors.hero.HeroClass;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.HeroSubClass;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Talent;
 import com.rexbattler41.shadowpixeldungeon.effects.particles.ElmoParticle;
@@ -97,15 +98,6 @@ public class RightClaw extends MeleeWeapon{
     public int max(int lvl) {
         return  Math.round(3f*(tier+1)) +     //5 base, down from 10
                 lvl*Math.round(0.5f*(tier+1));  //+1 per level, down from +2
-    }
-
-    public RightClaw(Wand wand){
-        this();
-        wand.identify();
-        wand.cursed = false;
-        this.wand = wand;
-        updateWand(false);
-        wand.curCharges = wand.maxCharges;
     }
 
     @Override
@@ -176,8 +168,6 @@ public class RightClaw extends MeleeWeapon{
 
     public Item imbueWand(Wand wand, Char owner){
 
-        int oldStaffcharges = this.wand.curCharges;
-
         if (owner == Dungeon.hero && Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)){
             Talent.WandPreservationCounter counter = Buff.affect(Dungeon.hero, Talent.WandPreservationCounter.class);
             if (counter.count() < 5 && Random.Float() < 0.34f + 0.33f*Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION)){
@@ -212,7 +202,7 @@ public class RightClaw extends MeleeWeapon{
         level(targetLevel);
         this.wand = wand;
         updateWand(false);
-        wand.curCharges = Math.min(wand.maxCharges, wand.curCharges+oldStaffcharges);
+        wand.curCharges = Math.min(wand.maxCharges, wand.curCharges);
         if (owner != null){
             applyWandChargeBuff(owner);
         } else if (Dungeon.hero.belongings.contains(this)){

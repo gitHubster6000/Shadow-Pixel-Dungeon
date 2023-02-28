@@ -45,7 +45,6 @@ public class LeftClaw extends MissileWeapon {
         image = ItemSpriteSheet.CLAW;
         hitSound = Assets.Sounds.HIT_SLASH;
         hitSoundPitch = 1f;
-        DLY = 0.25f;
 
         internalTier = tier = 1;
         sticky = false;

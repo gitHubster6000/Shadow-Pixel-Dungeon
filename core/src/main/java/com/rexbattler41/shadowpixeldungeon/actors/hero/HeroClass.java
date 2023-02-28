@@ -159,6 +159,8 @@ public enum HeroClass {
 				return Badges.Badge.MASTERY_HUNTRESS;
 			case RAT_KING:
 				return Badges.Badge.MASTERY_RAT_KING;
+			case VOIDWALKER:
+				return Badges.Badge.MASTERY_VOIDWALKER;
 		}
 		return null;
 	}
@@ -228,8 +230,6 @@ public enum HeroClass {
 		(hero.belongings.weapon = right).identify();
 		LeftClaw claw = new LeftClaw();
 		claw.identify().collect();
-		KingsCrown crown = new KingsCrown();
-		crown.collect();
 
 		Dungeon.quickslot.setSlot(0, claw);
 
@@ -339,7 +339,7 @@ public enum HeroClass {
 				return Assets.Splashes.HUNTRESS;
 			case VOIDWALKER:
 				return Assets.Splashes.HUNTRESS;
-				//This is just temporary, since I don't have a splash art yet
+				//This is just temporary, since I don't have a splash art yet. I am not a good pixel artist either
 			case RAT_KING:
 				return Assets.Splashes.RATKING;
 		}
