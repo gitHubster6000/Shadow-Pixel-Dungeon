@@ -27,6 +27,8 @@
 
 package com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker;
 
+import static com.rexbattler41.shadowpixeldungeon.actors.buffs.MagicalSight.DISTANCE;
+
 import com.rexbattler41.shadowpixeldungeon.Assets;
 import com.rexbattler41.shadowpixeldungeon.actors.Actor;
 import com.rexbattler41.shadowpixeldungeon.actors.Char;
@@ -53,9 +55,81 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 public class SuperNova extends ArmorAbility {
+
+    {
+        baseChargeUse = 35f;
+    }
+
+    @Override
+    public String targetingPrompt() {
+        return Messages.get(this, "prompt");
+    }
+
+    @Override
+    public int targetedPos(Char user, int dst) {
+        return new Ballistica( user.pos, dst, Ballistica.STOP_SOLID | Ballistica.STOP_TARGET ).collisionPos;
+    }
+
     @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
+        hero.busy();
 
+        armor.charge -= chargeUse(hero);
+        Item.updateQuickslot();
+
+        Ballistica aim = new Ballistica(hero.pos, target, Ballistica.WONT_STOP);
+
+        int maxDist = DISTANCE;
+        int dist = Math.min(aim.dist, maxDist);
+
+        ConeAOE cone = new ConeAOE(aim,
+                dist,
+                360,
+                Ballistica.STOP_SOLID | Ballistica.STOP_TARGET);
+
+        //cast to cells at the tip, rather than all cells, better performance.
+        for (Ballistica ray : cone.outerRays){
+            ((MagicMissile)hero.sprite.parent.recycle( MagicMissile.class )).reset(
+                    MagicMissile.FORCE_CONE,
+                    hero.sprite,
+                    ray.path.get(ray.dist),
+                    null
+            );
+        }
+
+        hero.sprite.zap(target);
+        Sample.INSTANCE.play(Assets.Sounds.BLAST, 1f, 0.5f);
+        Camera.main.shake(2, 0.5f);
+        //final zap at 2/3 distance, for timing of the actual effect
+        MagicMissile.boltFromChar(hero.sprite.parent,
+                MagicMissile.FORCE_CONE,
+                hero.sprite,
+                cone.coreRay.path.get(dist * 2 / 3),
+                new Callback() {
+                    @Override
+                    public void call() {
+
+                        for (int cell : cone.cells){
+
+                            Char ch = Actor.findChar(cell);
+                            if (ch != null && ch.alignment != hero.alignment){
+                                int scalingStr = hero.STR()-10;
+                                int damage = Random.NormalIntRange(5 + scalingStr, 10 + 2*scalingStr);
+                                damage -= ch.drRoll();
+                                ch.damage(damage, hero);
+
+                                if (ch.isAlive()){
+                                        Buff.affect(ch, Paralysis.class, 5f);
+                                }
+
+                            }
+                        }
+
+                        Invisibility.dispel();
+                        hero.spendAndNext(Actor.TICK);
+
+                    }
+                });
     }
 
     @Override
