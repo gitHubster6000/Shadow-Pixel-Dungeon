@@ -71,6 +71,8 @@ public class RightClaw extends MeleeWeapon{
     public static final String AC_IMBUE = "IMBUE";
     public static final String AC_ZAP	= "ZAP";
 
+
+
     private static final float STAFF_SCALE_FACTOR = 0.75f;
 
     {
@@ -109,6 +111,11 @@ public class RightClaw extends MeleeWeapon{
                 actions.add(AC_ZAP);
             }
         }
+
+        actions.remove(AC_UNEQUIP);
+        actions.remove(AC_DROP);
+        actions.remove(AC_THROW);
+
         return actions;
     }
 
