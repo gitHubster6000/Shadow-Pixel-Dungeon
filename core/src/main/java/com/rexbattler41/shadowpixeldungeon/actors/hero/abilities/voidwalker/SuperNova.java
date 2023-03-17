@@ -69,6 +69,8 @@ public class SuperNova extends ArmorAbility {
         baseChargeUse = 35f;
     }
 
+    protected static Hero curUser = null;
+
     @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
         for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
@@ -78,18 +80,21 @@ public class SuperNova extends ArmorAbility {
             }
         }
 
+        final Ballistica chain = new Ballistica(curUser.pos, target, Ballistica.STOP_TARGET);
+
+        pull( chain, curUser, Actor.findChar( chain.collisionPos ));
+
     }
 
-    protected void pull( Ballistica chain, final Hero hero, final Char enemy ) {
+    private void pull( Ballistica chain, final Hero hero, final Char enemy ) {
         int bestPos = -1;
-
         for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
             if (Dungeon.level.heroFOV[mob.pos]) {
                 for (int i : chain.subPath(1, chain.dist)){
                     //prefer to the earliest point on the path
                     if (!Dungeon.level.solid[i]
                             && Actor.findChar(i) == null
-                            && (!Char.hasProp(enemy, Char.Property.LARGE) || Dungeon.level.openSpace[i])){
+                            && (!Char.hasProp(enemy, Char.Property.LARGE))){
                         bestPos = i;
                         break;
                     }
@@ -97,12 +102,27 @@ public class SuperNova extends ArmorAbility {
             }
         }
 
+        final int pulledPos = bestPos;
 
-        if (bestPos == -1) {
-            GLog.i(Messages.get(this, "does_nothing"));
-            return;
-        }
-
+        hero.busy();
+        Sample.INSTANCE.play( Assets.Sounds.CHAINS );
+        hero.sprite.parent.add(new Chains(hero.sprite.center(),
+                enemy.sprite.center(),
+                Effects.Type.ETHEREAL_CHAIN,
+                new Callback() {
+                    public void call() {
+                        Actor.add(new Pushing(enemy, enemy.pos, pulledPos, new Callback() {
+                            public void call() {
+                                enemy.pos = pulledPos;
+                                Dungeon.level.occupyCell(enemy);
+                                Dungeon.observe();
+                                GameScene.updateFog();
+                                hero.spendAndNext(1f);
+                            }
+                        }));
+                        hero.next();
+                    }
+                }));
     }
 
     @Override
