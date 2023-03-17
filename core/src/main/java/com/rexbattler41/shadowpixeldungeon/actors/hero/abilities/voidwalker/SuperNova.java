@@ -27,31 +27,40 @@
 
 package com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker;
 
-import static com.rexbattler41.shadowpixeldungeon.actors.buffs.MagicalSight.DISTANCE;
-
-import com.rexbattler41.shadowpixeldungeon.Assets;
+import com.rexbattler41.shadowpixeldungeon.Dungeon;
 import com.rexbattler41.shadowpixeldungeon.actors.Actor;
 import com.rexbattler41.shadowpixeldungeon.actors.Char;
-import com.rexbattler41.shadowpixeldungeon.actors.buffs.Buff;
-import com.rexbattler41.shadowpixeldungeon.actors.buffs.Combo;
-import com.rexbattler41.shadowpixeldungeon.actors.buffs.Cripple;
-import com.rexbattler41.shadowpixeldungeon.actors.buffs.Invisibility;
-import com.rexbattler41.shadowpixeldungeon.actors.buffs.Paralysis;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Hero;
-import com.rexbattler41.shadowpixeldungeon.actors.hero.HeroSubClass;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Talent;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.ArmorAbility;
-import com.rexbattler41.shadowpixeldungeon.effects.MagicMissile;
-import com.rexbattler41.shadowpixeldungeon.items.Item;
+import com.rexbattler41.shadowpixeldungeon.actors.mobs.Mob;
 import com.rexbattler41.shadowpixeldungeon.items.armor.ClassArmor;
-import com.rexbattler41.shadowpixeldungeon.mechanics.Ballistica;
-import com.rexbattler41.shadowpixeldungeon.mechanics.ConeAOE;
 import com.rexbattler41.shadowpixeldungeon.messages.Messages;
 import com.rexbattler41.shadowpixeldungeon.ui.HeroIcon;
 import com.rexbattler41.shadowpixeldungeon.utils.GLog;
-import com.watabou.noosa.Camera;
+import com.rexbattler41.shadowpixeldungeon.Assets;
+import com.rexbattler41.shadowpixeldungeon.Dungeon;
+import com.rexbattler41.shadowpixeldungeon.actors.Actor;
+import com.rexbattler41.shadowpixeldungeon.actors.Char;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.Buff;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.Cripple;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.LockedFloor;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.MagicImmune;
+import com.rexbattler41.shadowpixeldungeon.actors.hero.Hero;
+import com.rexbattler41.shadowpixeldungeon.actors.hero.Talent;
+import com.rexbattler41.shadowpixeldungeon.effects.Chains;
+import com.rexbattler41.shadowpixeldungeon.effects.Effects;
+import com.rexbattler41.shadowpixeldungeon.effects.Pushing;
+import com.rexbattler41.shadowpixeldungeon.mechanics.Ballistica;
+import com.rexbattler41.shadowpixeldungeon.messages.Messages;
+import com.rexbattler41.shadowpixeldungeon.scenes.CellSelector;
+import com.rexbattler41.shadowpixeldungeon.scenes.GameScene;
+import com.rexbattler41.shadowpixeldungeon.sprites.ItemSpriteSheet;
+import com.rexbattler41.shadowpixeldungeon.tiles.DungeonTilemap;
+import com.rexbattler41.shadowpixeldungeon.utils.BArray;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class SuperNova extends ArmorAbility {
@@ -61,75 +70,39 @@ public class SuperNova extends ArmorAbility {
     }
 
     @Override
-    public String targetingPrompt() {
-        return Messages.get(this, "prompt");
-    }
-
-    @Override
-    public int targetedPos(Char user, int dst) {
-        return new Ballistica( user.pos, dst, Ballistica.STOP_SOLID | Ballistica.STOP_TARGET ).collisionPos;
-    }
-
-    @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
-        hero.busy();
-
-        armor.charge -= chargeUse(hero);
-        Item.updateQuickslot();
-
-        Ballistica aim = new Ballistica(hero.pos, target, Ballistica.WONT_STOP);
-
-        int maxDist = DISTANCE;
-        int dist = Math.min(aim.dist, maxDist);
-
-        ConeAOE cone = new ConeAOE(aim,
-                dist,
-                360,
-                Ballistica.STOP_SOLID | Ballistica.STOP_TARGET);
-
-        //cast to cells at the tip, rather than all cells, better performance.
-        for (Ballistica ray : cone.outerRays){
-            ((MagicMissile)hero.sprite.parent.recycle( MagicMissile.class )).reset(
-                    MagicMissile.FORCE_CONE,
-                    hero.sprite,
-                    ray.path.get(ray.dist),
-                    null
-            );
+        for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+            if (Dungeon.level.heroFOV[mob.pos]) {
+                //deals 10%HT, plus 0-90%HP based on scaling
+                mob.damage(Math.round(mob.HT/10f + (mob.HP * 0.225f)), this);
+            }
         }
 
-        hero.sprite.zap(target);
-        Sample.INSTANCE.play(Assets.Sounds.BLAST, 1f, 0.5f);
-        Camera.main.shake(2, 0.5f);
-        //final zap at 2/3 distance, for timing of the actual effect
-        MagicMissile.boltFromChar(hero.sprite.parent,
-                MagicMissile.FORCE_CONE,
-                hero.sprite,
-                cone.coreRay.path.get(dist * 2 / 3),
-                new Callback() {
-                    @Override
-                    public void call() {
+    }
 
-                        for (int cell : cone.cells){
+    protected void pull( Ballistica chain, final Hero hero, final Char enemy ) {
+        int bestPos = -1;
 
-                            Char ch = Actor.findChar(cell);
-                            if (ch != null && ch.alignment != hero.alignment){
-                                int scalingStr = hero.STR()-10;
-                                int damage = Random.NormalIntRange(5 + scalingStr, 10 + 2*scalingStr);
-                                damage -= ch.drRoll();
-                                ch.damage(damage, hero);
-
-                                if (ch.isAlive()){
-                                        Buff.affect(ch, Paralysis.class, 5f);
-                                }
-
-                            }
-                        }
-
-                        Invisibility.dispel();
-                        hero.spendAndNext(Actor.TICK);
-
+        for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+            if (Dungeon.level.heroFOV[mob.pos]) {
+                for (int i : chain.subPath(1, chain.dist)){
+                    //prefer to the earliest point on the path
+                    if (!Dungeon.level.solid[i]
+                            && Actor.findChar(i) == null
+                            && (!Char.hasProp(enemy, Char.Property.LARGE) || Dungeon.level.openSpace[i])){
+                        bestPos = i;
+                        break;
                     }
-                });
+                }
+            }
+        }
+
+
+        if (bestPos == -1) {
+            GLog.i(Messages.get(this, "does_nothing"));
+            return;
+        }
+
     }
 
     @Override
