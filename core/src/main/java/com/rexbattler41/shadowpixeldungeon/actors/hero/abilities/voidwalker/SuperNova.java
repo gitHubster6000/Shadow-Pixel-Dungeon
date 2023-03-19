@@ -78,17 +78,23 @@ public class SuperNova extends ArmorAbility {
     protected static Hero curUser = null;
 
     @Override
+    public String targetingPrompt() {
+        return Messages.get(this, "prompt");
+    }
+
+    @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
         for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
             if (Dungeon.level.heroFOV[mob.pos]) {
                 //deals 10%HT, plus 0-90%HP based on scaling
                 mob.damage(Math.round(mob.HT/10f + (mob.HP * 0.225f)), this);
 
-                final Ballistica bolt = new Ballistica(curUser.pos, target, Ballistica.STOP_TARGET);
 
-                pull(bolt);
             }
         }
+        final Ballistica bolt = new Ballistica(curUser.pos, target, Ballistica.STOP_TARGET);
+
+        pull(bolt);
     }
 
     public void pull(Ballistica bolt) {
