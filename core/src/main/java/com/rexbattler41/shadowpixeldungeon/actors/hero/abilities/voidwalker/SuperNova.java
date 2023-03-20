@@ -91,6 +91,8 @@ public class SuperNova extends ArmorAbility {
             }
 
             final Ballistica chain = new Ballistica(curUser.pos, target, Ballistica.STOP_TARGET);
+
+            pull( chain, curUser, Actor.findChar( chain.collisionPos ));
         }
     }
 
