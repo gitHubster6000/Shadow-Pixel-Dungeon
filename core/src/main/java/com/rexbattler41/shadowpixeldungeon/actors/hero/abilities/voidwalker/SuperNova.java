@@ -88,100 +88,54 @@ public class SuperNova extends ArmorAbility {
             if (Dungeon.level.heroFOV[mob.pos]) {
                 //deals 10%HT, plus 0-90%HP based on scaling
                 mob.damage(Math.round(mob.HT/10f + (mob.HP * 0.225f)), this);
-
-
             }
-        }
-        final Ballistica bolt = new Ballistica(curUser.pos, target, Ballistica.STOP_TARGET);
 
-        pull(bolt);
-    }
-
-    public void pull(Ballistica bolt) {
-        //throws the char at the center of the blast
-        Char ch = Actor.findChar(bolt.collisionPos);
-        if (ch != null){
-
-
-            if (bolt.path.size() > bolt.dist+1 && ch.pos == bolt.collisionPos) {
-                Ballistica trajectory = new Ballistica(ch.pos, bolt.path.get(bolt.dist + 1), Ballistica.MAGIC_BOLT);
-                int strength = 3;
-                throwChar(ch, trajectory, strength, false, true, getClass());
-            }
+            final Ballistica chain = new Ballistica(curUser.pos, target, Ballistica.STOP_TARGET);
         }
     }
 
-    public static void throwChar(final Char ch, final Ballistica trajectory, int power,
-                                 boolean closeDoors, boolean collideDmg, Class cause){
-        if (ch.properties().contains(Char.Property.BOSS)) {
-            power /= 2;
+    private void pull( Ballistica chain, final Hero hero, final Char enemy ){
+
+        if (enemy.properties().contains(Char.Property.IMMOVABLE)) {
+            return;
         }
 
-        int dist = Math.min(trajectory.dist, power);
-
-        boolean collided = dist == trajectory.dist;
-
-        if (dist <= 0
-                || ch.rooted
-                || ch.properties().contains(Char.Property.IMMOVABLE)) return;
-
-        //large characters cannot be moved into non-open space
-        if (Char.hasProp(ch, Char.Property.LARGE)) {
-            for (int i = 1; i <= dist; i++) {
-                if (!Dungeon.level.openSpace[trajectory.path.get(i)]){
-                    dist = i-1;
-                    collided = true;
-                    break;
-                }
+        int bestPos = -1;
+        for (int i : chain.subPath(1, chain.dist)){
+            //prefer to the earliest point on the path
+            if (!Dungeon.level.solid[i]
+                    && Actor.findChar(i) == null
+                    && (!Char.hasProp(enemy, Char.Property.LARGE) || Dungeon.level.openSpace[i])){
+                bestPos = i;
+                break;
             }
         }
 
-        if (Actor.findChar(trajectory.path.get(dist)) != null){
-            dist--;
-            collided = true;
-        }
 
-        if (dist < 0) return;
+        final int pulledPos = bestPos;
 
-        final int newPos = trajectory.path.get(dist);
 
-        if (newPos == ch.pos) return;
-
-        final int finalDist = dist;
-        final boolean finalCollided = collided && collideDmg;
-        final int initialpos = ch.pos;
-
-        Actor.addDelayed(new Pushing(ch, ch.pos, newPos, new Callback() {
-            public void call() {
-                if (initialpos != ch.pos || Actor.findChar(newPos) != null) {
-                    //something caused movement or added chars before pushing resolved, cancel to be safe.
-                    ch.sprite.place(ch.pos);
-                    return;
-                }
-                int oldPos = ch.pos;
-                ch.pos = newPos;
-                if (finalCollided && ch.isAlive()) {
-                    ch.damage(Random.NormalIntRange(finalDist, 2*finalDist), this);
-                    if (ch.isAlive()) {
-                        Paralysis.prolong(ch, Paralysis.class, 1 + finalDist/2f);
-                    } else if (ch == Dungeon.hero){
-                        if (cause == WandOfBlastWave.class || cause == AquaBlast.class){
-                            Badges.validateDeathFromFriendlyMagic();
-                        }
-                        Dungeon.fail(cause);
+        hero.busy();
+        Sample.INSTANCE.play( Assets.Sounds.CHAINS );
+        hero.sprite.parent.add(new Chains(hero.sprite.center(),
+                enemy.sprite.center(),
+                Effects.Type.ETHEREAL_CHAIN,
+                new Callback() {
+                    public void call() {
+                        Actor.add(new Pushing(enemy, enemy.pos, pulledPos, new Callback() {
+                            public void call() {
+                                enemy.pos = pulledPos;
+                                Dungeon.level.occupyCell(enemy);
+                                Dungeon.observe();
+                                GameScene.updateFog();
+                                hero.spendAndNext(1f);
+                            }
+                        }));
+                        hero.next();
                     }
-                }
-                if (closeDoors && Dungeon.level.map[oldPos] == Terrain.OPEN_DOOR){
-                    Door.leave(oldPos);
-                }
-                Dungeon.level.occupyCell(ch);
-                if (ch == Dungeon.hero){
-                    Dungeon.observe();
-                    GameScene.updateFog();
-                }
-            }
-        }), -1);
+                }));
     }
+
 
     @Override
     public Talent[] talents() {
