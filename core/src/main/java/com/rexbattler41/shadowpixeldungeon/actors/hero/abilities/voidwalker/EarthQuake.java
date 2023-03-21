@@ -1,5 +1,7 @@
 package com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker;
 
+import static com.rexbattler41.shadowpixeldungeon.actors.Actor.TICK;
+
 import com.rexbattler41.shadowpixeldungeon.Dungeon;
 import com.rexbattler41.shadowpixeldungeon.actors.buffs.Buff;
 import com.rexbattler41.shadowpixeldungeon.actors.buffs.Levitation;
@@ -20,25 +22,25 @@ public class EarthQuake extends ArmorAbility {
     }
     @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
-        for (int i = 0; i < 10; i++) {
-            for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-                if (Dungeon.level.heroFOV[mob.pos]) {
-                    //deals 10%HT, plus 0-90%HP based on scaling
-                    mob.damage(Math.round(mob.HT/10f + (mob.HP * 0.225f)), this);
-                    if (mob.isAlive()) {
-                        Buff.prolong(mob, Paralysis.class, Paralysis.DURATION);
-                    }
-                }
-            }
-            if (hero.buff(Levitation.class) == null){
-                hero.damage(10, this);
-                if (!hero.isAlive()) {
-                    Dungeon.fail( getClass() );
-                    GLog.n( Messages.get(this, "ondeath") );
+        for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+            if (Dungeon.level.heroFOV[mob.pos]) {
+                //deals 10%HT, plus 0-90%HP based on scaling
+                mob.damage(Math.round(mob.HT/60f + (mob.HP * 0.225f)), this);
+                if (mob.isAlive()) {
+                    Buff.prolong(mob, Paralysis.class, Paralysis.DURATION);
                 }
             }
         }
+        if (hero.buff(Levitation.class) == null){
+            hero.damage(10, this);
+            if (!hero.isAlive()) {
+                Dungeon.fail( getClass() );
+                GLog.n( Messages.get(this, "ondeath") );
+            }
+        }
+        hero.spend(TICK);
     }
+
 
     @Override
     public int icon() {
