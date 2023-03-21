@@ -41,8 +41,8 @@ import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.rogue.DeathMark
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.rogue.SmokeBomb;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.AnimalsTrans;
+import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.EarthQuake;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.StrikingDash;
-import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker.SuperNova;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.warrior.Shockwave;
@@ -304,7 +304,7 @@ public enum HeroClass {
 			case HUNTRESS:
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
 			case VOIDWALKER:
-				return new ArmorAbility[]{new AnimalsTrans(), new StrikingDash(), new SuperNova()};
+				return new ArmorAbility[]{new AnimalsTrans(), new StrikingDash(), new EarthQuake()};
 			case RAT_KING:
 				return new ArmorAbility[]{new Ratmogrify(), new LegacyWrath()};
 		}
