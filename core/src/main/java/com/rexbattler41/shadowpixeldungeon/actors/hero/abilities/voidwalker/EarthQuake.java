@@ -9,7 +9,9 @@ import com.rexbattler41.shadowpixeldungeon.actors.hero.Talent;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.rexbattler41.shadowpixeldungeon.actors.mobs.Mob;
 import com.rexbattler41.shadowpixeldungeon.items.armor.ClassArmor;
+import com.rexbattler41.shadowpixeldungeon.messages.Messages;
 import com.rexbattler41.shadowpixeldungeon.ui.HeroIcon;
+import com.rexbattler41.shadowpixeldungeon.utils.GLog;
 
 public class EarthQuake extends ArmorAbility {
 
@@ -29,9 +31,12 @@ public class EarthQuake extends ArmorAbility {
                 }
             }
             if (hero.buff(Levitation.class) == null){
-
+                hero.damage(10, this);
+                if (!hero.isAlive()) {
+                    Dungeon.fail( getClass() );
+                    GLog.n( Messages.get(this, "ondeath") );
+                }
             }
-
         }
     }
 
