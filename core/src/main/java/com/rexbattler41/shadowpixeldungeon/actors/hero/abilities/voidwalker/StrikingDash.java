@@ -27,16 +27,86 @@
 
 package com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.voidwalker;
 
+import com.rexbattler41.shadowpixeldungeon.Dungeon;
+import com.rexbattler41.shadowpixeldungeon.actors.Actor;
+import com.rexbattler41.shadowpixeldungeon.actors.Char;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.Buff;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.Invisibility;
+import com.rexbattler41.shadowpixeldungeon.actors.buffs.Vulnerable;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Hero;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Talent;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.rexbattler41.shadowpixeldungeon.items.armor.ClassArmor;
+import com.rexbattler41.shadowpixeldungeon.items.wands.WandOfBlastWave;
+import com.rexbattler41.shadowpixeldungeon.mechanics.Ballistica;
+import com.rexbattler41.shadowpixeldungeon.scenes.GameScene;
 import com.rexbattler41.shadowpixeldungeon.ui.HeroIcon;
+import com.watabou.noosa.Camera;
+import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 public class StrikingDash extends ArmorAbility {
+
+    {
+        baseChargeUse = 35f;
+    }
+
     @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
+        if (target != null) {
 
+            Ballistica route = new Ballistica(hero.pos, target, Ballistica.STOP_SOLID);
+            int cell = route.collisionPos;
+
+            //can't occupy the same cell as another char, so move back one.
+            int backTrace = route.dist-1;
+            while (Actor.findChar( cell ) != null && cell != hero.pos) {
+                cell = route.path.get(backTrace);
+                backTrace--;
+            }
+
+            armor.charge -= chargeUse( hero );
+            armor.updateQuickslot();
+
+            final int dest = cell;
+            hero.busy();
+            hero.sprite.jump(hero.pos, cell, new Callback() {
+                @Override
+                public void call() {
+                    hero.move(dest);
+                    Dungeon.level.occupyCell(hero);
+                    Dungeon.observe();
+                    GameScene.updateFog();
+
+                    for (int i : PathFinder.NEIGHBOURS8) {
+                        Char mob = Actor.findChar(hero.pos + i);
+                        if (mob != null && mob != hero && mob.alignment != Char.Alignment.ALLY) {
+                            if (hero.hasTalent(Talent.BODY_SLAM)){
+                                int damage = Random.NormalIntRange(hero.pointsInTalent(Talent.BODY_SLAM), 4*hero.pointsInTalent(Talent.BODY_SLAM));
+                                damage += Math.round(hero.drRoll()*0.25f*hero.pointsInTalent(Talent.BODY_SLAM));
+                                mob.damage(damage, hero);
+                            }
+                            if (mob.pos == hero.pos + i && hero.hasTalent(Talent.IMPACT_WAVE)){
+                                Ballistica trajectory = new Ballistica(mob.pos, mob.pos + i, Ballistica.MAGIC_BOLT);
+                                int strength = 1+hero.pointsInTalent(Talent.IMPACT_WAVE);
+                                WandOfBlastWave.throwChar(mob, trajectory, strength, true, true, this.getClass());
+                                if (Random.Int(4) < hero.pointsInTalent(Talent.IMPACT_WAVE)){
+                                    Buff.prolong(mob, Vulnerable.class, 5f);
+                                }
+                            }
+                        }
+                    }
+
+                    WandOfBlastWave.BlastWave.blast(dest);
+                    Camera.main.shake(2, 0.5f);
+
+                    Invisibility.dispel();
+                    hero.spendAndNext(Actor.TICK);
+
+                }
+            });
+        }
     }
 
     @Override
