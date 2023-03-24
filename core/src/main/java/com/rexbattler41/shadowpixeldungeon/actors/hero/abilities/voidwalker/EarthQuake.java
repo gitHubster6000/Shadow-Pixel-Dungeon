@@ -41,11 +41,12 @@ import com.rexbattler41.shadowpixeldungeon.items.armor.ClassArmor;
 import com.rexbattler41.shadowpixeldungeon.messages.Messages;
 import com.rexbattler41.shadowpixeldungeon.ui.HeroIcon;
 import com.rexbattler41.shadowpixeldungeon.utils.GLog;
+import com.watabou.utils.Random;
 
 public class EarthQuake extends ArmorAbility {
 
     {
-        baseChargeUse = 35f;
+        baseChargeUse = 25f;
     }
     @Override
     protected void activate(ClassArmor armor, Hero hero, Integer target) {
@@ -59,10 +60,10 @@ public class EarthQuake extends ArmorAbility {
             }
         }
         if (hero.buff(Levitation.class) == null){
-            hero.damage(10, this);
+            hero.damage(21, this);
             if (!hero.isAlive()) {
                 Dungeon.fail( getClass() );
-                GLog.n( Messages.get(this, "ondeath") );
+                GLog.n( Messages.get(this, "ondeath_" + Random.IntRange(0, 3)) );
             }
         }
         hero.spend(TICK);
