@@ -346,6 +346,18 @@ public class SPDSettings extends GameSettings {
 		return getBoolean(KEY_SYSTEMFONT, false);
 	}
 
+	//Memes
+
+	public static void ratPotions( boolean value ) {
+		put( KEY_FULLSCREEN, value );
+
+		shadowpixeldungeon.updateSystemUI();
+	}
+
+	public static boolean ratPotions() {
+		return getBoolean( KEY_FULLSCREEN, DeviceCompat.isDesktop() );
+	}
+
 	//Connectivity
 
 	public static final String KEY_NEWS     = "news";

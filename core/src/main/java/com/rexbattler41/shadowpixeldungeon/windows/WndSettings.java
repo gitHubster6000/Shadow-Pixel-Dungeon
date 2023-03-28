@@ -68,6 +68,7 @@ public class WndSettings extends WndTabbed {
 	private DataTab     data;
 	private AudioTab    audio;
 	private LangsTab    langs;
+	private MemesTab	memes;
 
 	public static int last_index = 0;
 
@@ -185,6 +186,20 @@ public class WndSettings extends WndTabbed {
 
 		};
 		add( langsTab );
+
+		memes = new MemesTab();
+		memes.setSize(width, 0);
+		height = memes.height();
+		add( memes );
+
+		add( new IconTab(Icons.get(Icons.DISPLAY)){
+			@Override
+			protected void select(boolean value) {
+				super.select(value);
+				memes.visible = memes.active = value;
+				if (value) last_index = 0;
+			}
+		});
 
 		resize(width, (int)Math.ceil(height));
 
@@ -1242,4 +1257,61 @@ public class WndSettings extends WndTabbed {
 
 		}
 	}
+
+	private static class MemesTab extends Component {
+
+		RenderedTextBlock title;
+		ColorBlock sep1;
+		CheckBox chkRatPotions;
+		OptionSlider optScale;
+		CheckBox chkSaver;
+
+		@Override
+		protected void createChildren() {
+			title = PixelScene.renderTextBlock(Messages.get(this, "title"), 9);
+			title.hardlight(TITLE_COLOR);
+			add(title);
+
+			sep1 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep1);
+
+			chkRatPotions = new CheckBox( Messages.get(this, "rat_potion") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.ratPotions(checked());
+				}
+			};
+			chkRatPotions.checked(SPDSettings.ratPotions());
+			add(chkRatPotions);
+		}
+
+		@Override
+		protected void layout() {
+
+			float bottom = y;
+
+			title.setPos((width - title.width()) / 2, bottom + GAP);
+			sep1.size(width, 1);
+			sep1.y = title.bottom() + 3 * GAP;
+
+			bottom = sep1.y + 1;
+
+			if (width > 200 && chkSaver != null) {
+				chkRatPotions.setRect(0, bottom + GAP, width / 2 - 1, BTN_HEIGHT);
+				chkSaver.setRect(chkRatPotions.right() + GAP, bottom + GAP, width / 2 - 1, BTN_HEIGHT);
+				bottom = chkRatPotions.bottom();
+			} else {
+				chkRatPotions.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = chkRatPotions.bottom();
+
+				if (chkSaver != null) {
+					chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+					bottom = chkSaver.bottom();
+				}
+			}
+		}
+	}
+
+
 }
