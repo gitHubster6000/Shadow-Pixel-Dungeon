@@ -348,10 +348,10 @@ public class SPDSettings extends GameSettings {
 
 	//Memes
 
-	public static boolean ratPotions() {return getBoolean("ratPotions", true);}
-	public static void ratPotions(boolean value){
-		put("ratPotions", value);
-	}
+	//public static boolean ratPotions() {return getBoolean("rat_Potions", true);}
+	//public static void ratPotions(boolean value){
+	//	put("rat_Potions", value);
+	//}
 
 	//Connectivity
 
