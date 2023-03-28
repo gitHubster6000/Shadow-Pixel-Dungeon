@@ -348,14 +348,9 @@ public class SPDSettings extends GameSettings {
 
 	//Memes
 
-	public static void ratPotions( boolean value ) {
-		put( KEY_FULLSCREEN, value );
-
-		shadowpixeldungeon.updateSystemUI();
-	}
-
-	public static boolean ratPotions() {
-		return getBoolean( KEY_FULLSCREEN, DeviceCompat.isDesktop() );
+	public static boolean ratPotions() {return getBoolean("ratPotions", true);}
+	public static void ratPotions(boolean value){
+		put("ratPotions", value);
 	}
 
 	//Connectivity

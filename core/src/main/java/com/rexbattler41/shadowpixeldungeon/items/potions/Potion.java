@@ -72,18 +72,18 @@ public class Potion extends Item {
 
 	private static final LinkedHashMap<String, Integer> colors = new LinkedHashMap<String, Integer>() {
 		{
-			put("crimson",ItemSpriteSheet.POTION_CRIMSON);
-			put("amber",ItemSpriteSheet.POTION_AMBER);
-			put("golden",ItemSpriteSheet.POTION_GOLDEN);
-			put("jade",ItemSpriteSheet.POTION_JADE);
-			put("turquoise",ItemSpriteSheet.POTION_TURQUOISE);
-			put("azure",ItemSpriteSheet.POTION_AZURE);
-			put("indigo",ItemSpriteSheet.POTION_INDIGO);
-			put("magenta",ItemSpriteSheet.POTION_MAGENTA);
-			put("bistre",ItemSpriteSheet.POTION_BISTRE);
-			put("charcoal",ItemSpriteSheet.POTION_CHARCOAL);
-			put("silver",ItemSpriteSheet.POTION_SILVER);
-			put("ivory",ItemSpriteSheet.POTION_IVORY);
+			put("crimson",ItemSpriteSheet.RAT_CRIMSON);
+			put("amber",ItemSpriteSheet.RAT_AMBER);
+			put("golden",ItemSpriteSheet.RAT_GOLDEN);
+			put("jade",ItemSpriteSheet.RAT_JADE);
+			put("turquoise",ItemSpriteSheet.RAT_TURQUOISE);
+			put("azure",ItemSpriteSheet.RAT_AZURE);
+			put("indigo",ItemSpriteSheet.RAT_INDIGO);
+			put("magenta",ItemSpriteSheet.RAT_MAGENTA);
+			put("bistre",ItemSpriteSheet.RAT_BISTRE);
+			put("charcoal",ItemSpriteSheet.RAT_CHARCOAL);
+			put("silver",ItemSpriteSheet.RAT_SILVER);
+			put("ivory",ItemSpriteSheet.RAT_IVORY);
 		}
 	};
 	

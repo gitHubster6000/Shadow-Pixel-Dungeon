@@ -1263,8 +1263,6 @@ public class WndSettings extends WndTabbed {
 		RenderedTextBlock title;
 		ColorBlock sep1;
 		CheckBox chkRatPotions;
-		OptionSlider optScale;
-		CheckBox chkSaver;
 
 		@Override
 		protected void createChildren() {
@@ -1297,18 +1295,12 @@ public class WndSettings extends WndTabbed {
 
 			bottom = sep1.y + 1;
 
-			if (width > 200 && chkSaver != null) {
+			if (width > 200) {
+				bottom = chkRatPotions.bottom();
 				chkRatPotions.setRect(0, bottom + GAP, width / 2 - 1, BTN_HEIGHT);
-				chkSaver.setRect(chkRatPotions.right() + GAP, bottom + GAP, width / 2 - 1, BTN_HEIGHT);
-				bottom = chkRatPotions.bottom();
 			} else {
-				chkRatPotions.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 				bottom = chkRatPotions.bottom();
-
-				if (chkSaver != null) {
-					chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-					bottom = chkSaver.bottom();
-				}
+				chkRatPotions.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 			}
 		}
 	}

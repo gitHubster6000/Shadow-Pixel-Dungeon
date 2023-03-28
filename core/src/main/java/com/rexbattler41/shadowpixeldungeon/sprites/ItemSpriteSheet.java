@@ -370,7 +370,8 @@ public class ItemSpriteSheet {
 	public static final int ARMOR_ROGUE     = ARMOR+7;
 	public static final int ARMOR_HUNTRESS  = ARMOR+8;
 	public static final int ARMOR_RAT_KING	= ARMOR+9;
-	public static final int ARMOR_VOIDW     = ARMOR+10;
+	//public static final int ARMOR_NEW		= ARMOR+10;
+	public static final int ARMOR_VOIDW     = ARMOR+11;
 	static{
 		assignItemRect(ARMOR_CLOTH,     15, 12);
 		assignItemRect(ARMOR_LEATHER,   14, 13);
@@ -382,6 +383,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ARMOR_ROGUE,     14, 12);
 		assignItemRect(ARMOR_HUNTRESS,  13, 15);
 		assignItemRect(ARMOR_RAT_KING,	12, 6);
+		//assignItemRect(ARMOR_NEW,       12, 12);
 		assignItemRect(ARMOR_VOIDW,     13, 15);
 	}
 
@@ -613,7 +615,25 @@ public class ItemSpriteSheet {
 		for (int i = BREWS; i < BREWS+16; i++)
 			assignItemRect(i, 12, 14);
 	}
-	
+
+	private static final int RAT_POTIONS		=								xy(1,26); //16 slots
+
+	public static final int RAT_CRIMSON  = RAT_POTIONS+0;
+	public static final int RAT_AMBER    = RAT_POTIONS+1;
+	public static final int RAT_GOLDEN   = RAT_POTIONS+2;
+	public static final int RAT_JADE     = RAT_POTIONS+3;
+	public static final int RAT_TURQUOISE= RAT_POTIONS+4;
+	public static final int RAT_AZURE    = RAT_POTIONS+5;
+	public static final int RAT_INDIGO   = RAT_POTIONS+6;
+	public static final int RAT_MAGENTA  = RAT_POTIONS+7;
+	public static final int RAT_BISTRE   = RAT_POTIONS+8;
+	public static final int RAT_CHARCOAL = RAT_POTIONS+9;
+	public static final int RAT_SILVER   = RAT_POTIONS+10;
+	public static final int RAT_IVORY    = RAT_POTIONS+11;
+	static {
+		for (int i = RAT_POTIONS; i < RAT_POTIONS+16; i++)
+			assignItemRect(i, 12, 13);
+	}
 	                                                                                    //16 free slots
 	
 	private static final int SPELLS         =                               xy(1, 27);  //16 slots
