@@ -36,9 +36,11 @@ import com.rexbattler41.shadowpixeldungeon.actors.buffs.Vulnerable;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Hero;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.Talent;
 import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.ArmorAbility;
+import com.rexbattler41.shadowpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.rexbattler41.shadowpixeldungeon.items.armor.ClassArmor;
 import com.rexbattler41.shadowpixeldungeon.items.wands.WandOfBlastWave;
 import com.rexbattler41.shadowpixeldungeon.mechanics.Ballistica;
+import com.rexbattler41.shadowpixeldungeon.messages.Messages;
 import com.rexbattler41.shadowpixeldungeon.scenes.GameScene;
 import com.rexbattler41.shadowpixeldungeon.ui.HeroIcon;
 import com.watabou.noosa.Camera;
@@ -50,6 +52,17 @@ public class StrikingDash extends ArmorAbility {
 
     {
         baseChargeUse = 35f;
+    }
+
+    @Override
+    public String targetingPrompt() {
+        return Messages.get(this, "prompt");
+    }
+
+    @Override
+    public float chargeUse( Hero hero ) {
+        float chargeUse = super.chargeUse(hero);
+        return chargeUse;
     }
 
     @Override
